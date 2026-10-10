@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0f3d2e">
   <title>Baralho — Isso é bom ou ruim?</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
   <!-- Início -->
@@ -83,7 +83,18 @@
     </div>
   </section>
 
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <h3>Terminar agora?</h3>
+      <p id="modal-text"></p>
+      <div class="modal-actions">
+        <button id="modal-cancel" class="btn ghost" type="button">Continuar jogando</button>
+        <button id="modal-ok" class="btn primary" type="button">Ver resultado</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js?v=3"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>

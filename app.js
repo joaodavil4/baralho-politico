@@ -64,9 +64,9 @@
   function finishEarly() {
     if (!answers.length) { show("start"); return; }
     const left = deck.length - answers.length;
-    if (left > 0 && !confirm(`Terminar agora? Você respondeu ${answers.length} de ${deck.length} cartas e o resultado será parcial.`)) return;
-    card.classList.remove("leaving");
-    result();
+    if (left <= 0) { card.classList.remove("leaving"); return result(); }
+    $("modal-text").textContent = `Você respondeu ${answers.length} de ${deck.length} cartas. O resultado será parcial.`;
+    $("modal").classList.remove("hidden");
   }
 
   /* ---------- resultado ---------- */
@@ -165,6 +165,8 @@
   $("btn-bad").onclick = () => answer(false);
   $("btn-next").onclick = next;
   $("btn-finish").onclick = finishEarly;
+  $("modal-cancel").onclick = () => $("modal").classList.add("hidden");
+  $("modal-ok").onclick = () => { $("modal").classList.add("hidden"); card.classList.remove("leaving"); result(); };
   $("b-src").addEventListener("click", (e) => e.stopPropagation());
   card.addEventListener("click", () => { if (card.classList.contains("flipped")) next(); });
   addEventListener("keydown", (e) => {
