@@ -61,6 +61,14 @@
     }, 340);
   }
 
+  function finishEarly() {
+    if (!answers.length) { show("start"); return; }
+    const left = deck.length - answers.length;
+    if (left > 0 && !confirm(`Terminar agora? Você respondeu ${answers.length} de ${deck.length} cartas e o resultado será parcial.`)) return;
+    card.classList.remove("leaving");
+    result();
+  }
+
   /* ---------- resultado ---------- */
   function result() {
     // afinidade: "bom" nas propostas de um candidato e "ruim" nas do outro
@@ -86,6 +94,8 @@
     $("r-text").innerHTML = lula === flavio
       ? `Você ficou exatamente no meio: concordou com ${goodL} de ${nL} propostas atribuídas ao Lula e com ${goodF} de ${nF} atribuídas a Flávio Bolsonaro.`
       : `Você aprovou <b>${goodL} de ${nL}</b> propostas do Lula e <b>${goodF} de ${nF}</b> de Flávio Bolsonaro — e rejeitou ${nL - goodL} do Lula e ${nF - goodF} de Flávio.`;
+
+    if (total < deck.length) $("r-text").innerHTML += `<br><small>Resultado parcial: ${total} de ${deck.length} cartas.</small>`;
 
     $("r-list").innerHTML = answers.map(({ card: c, good }) =>
       `<li><span class="dot ${good ? "good" : "bad"}">${good ? "✓" : "✕"}</span>
@@ -154,6 +164,7 @@
   $("btn-good").onclick = () => answer(true);
   $("btn-bad").onclick = () => answer(false);
   $("btn-next").onclick = next;
+  $("btn-finish").onclick = finishEarly;
   $("b-src").addEventListener("click", (e) => e.stopPropagation());
   card.addEventListener("click", () => { if (card.classList.contains("flipped")) next(); });
   addEventListener("keydown", (e) => {

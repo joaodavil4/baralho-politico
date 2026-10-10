@@ -43,6 +43,10 @@ body {
 .progress { flex: 1; height: 6px; background: #ffffff26; border-radius: 99px; overflow: hidden; }
 #progress-bar { height: 100%; width: 0; background: #f2d27a; border-radius: 99px; transition: width .4s ease; }
 
+.finish { font: 700 .8rem system-ui, sans-serif; color: #fff; background: #ffffff1f; border: 1px solid #ffffff40;
+  border-radius: 99px; padding: 7px 13px; cursor: pointer; }
+.finish:active { transform: scale(.96); }
+
 /* ---------- mesa e carta ---------- */
 .table { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center;
   padding: 10px 16px 110px; }
