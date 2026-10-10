@@ -62,7 +62,11 @@ const CARDS = [
 
 // naipe e número como impressos nas cartas originais (aparecem só no verso)
 function suitOf(n) {
-  if (n > 32) return { sym: "★", name: "Extra", rank: "+", label: "Carta extra" };
+  // cartas extras de Flávio: seguem os naipes dele (ouros/paus) e a numeração continua em 33
+  if (n > 32) {
+    const ouros = n % 2 === 1;
+    return { sym: ouros ? "♦" : "♣", name: ouros ? "Ouros" : "Paus", rank: String(n), label: `${n} de ${ouros ? "Ouros" : "Paus"}` };
+  }
   const rank = n === 1 ? "Ás" : String(n);
   if (n <= 8)  return { sym: "♥", name: "Copas",   rank, label: `${rank} de Copas` };
   if (n <= 16) return { sym: "♠", name: "Espadas", rank, label: `${rank} de Espadas` };
