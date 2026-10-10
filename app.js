@@ -3,13 +3,16 @@
   const screens = { start: $("screen-start"), game: $("screen-game"), result: $("screen-result") };
   const card = $("card");
 
+  const PER_CANDIDATE = 5;
   let deck = [], idx = 0, answers = [], locked = false;
 
   const show = (name) => Object.entries(screens).forEach(([k, el]) => el.classList.toggle("active", k === name));
   const shuffle = (a) => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
   function start() {
-    deck = shuffle(CARDS); idx = 0; answers = [];
+    // 5 cartas de cada candidato por partida, embaralhadas
+    const pick = (who) => shuffle(CARDS.filter(c => c.who === who)).slice(0, PER_CANDIDATE);
+    deck = shuffle([...pick("lula"), ...pick("flavio")]); idx = 0; answers = [];
     show("game"); renderCard(true);
   }
 
@@ -37,8 +40,11 @@
     $("b-suit").textContent = $("b-suit2").textContent = s.sym;
     $("b-big").textContent = s.sym;
     $("b-who").textContent = who.name;
-    $("b-type").textContent = s.label;
+    $("b-type").textContent = c.extra
+      ? `${s.label} · ${c.kind === "fala" ? "Declaração" : "Plano de governo"}`
+      : s.label;
     $("b-src").href = c.src;
+    $("b-src").textContent = c.srcName ? `Ver fonte: ${c.srcName} ↗` : "Ver fonte ↗";
     const v = $("b-verdict");
     v.textContent = `Você achou ${good ? "bom" : "ruim"}`;
     v.className = "verdict " + (good ? "agree" : "disagree");

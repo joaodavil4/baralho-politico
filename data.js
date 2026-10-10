@@ -1,4 +1,4 @@
-// 32 cartas do baralho "Isso é bom ou ruim?"
+// 32 cartas do baralho original + 18 extras de Flávio "Isso é bom ou ruim?"
 // 1–16: Lula (♥ 1–8, ♠ 9–16) · 17–32: Flávio Bolsonaro (♦ 17–24, ♣ 25–32)
 const CANDIDATES = {
   lula:   { name: "Lula",             short: "Lula",   color: "#b3122b", dark: "#7d0b1e" },
@@ -39,10 +39,30 @@ const CARDS = [
   { n: 30, src: "https://tr.ee/ySUaZPPBLM49", who: "flavio", tag: "estadominimo",        text: "Acabar com o SUS e adotar saúde somente para quem puder pagar." },
   { n: 31, src: "https://tr.ee/aW1h8Pyq2v1n", who: "flavio", tag: "direitostrabalhistas", text: "Acabar com as leis trabalhistas deixando cada empregado negociar direto com o patrão." },
   { n: 32, src: "https://tr.ee/jeBg9jv4F1r6", who: "flavio", tag: "corrupcao",           text: "Manter inexplicada a relação próxima com Vorcaro, do Banco Master, e os pedidos e recebimentos de dinheiro que realizou." },
+  // Cartas extras (n 33+): propostas e falas de Flávio Bolsonaro com fonte jornalística.
+  { n: 33, extra: true, kind: "plano", srcName: "Portal Tela", src: "https://www.portaltela.com/politica/2026/08/14/plano-de-governo-de-flavio-bolsonaro-tem-9-eixos-veja-propostas/", who: "flavio", tag: "seguranca", text: "Reduzir a maioridade penal para 16 anos, com punição a partir de 14 anos em crimes graves." },
+  { n: 34, extra: true, kind: "plano", srcName: "Portal Tela", src: "https://www.portaltela.com/politica/2026/08/14/plano-de-governo-de-flavio-bolsonaro-tem-9-eixos-veja-propostas/", who: "flavio", tag: "seguranca", text: "Criar 500 mil vagas em presídios em quatro anos e cinco presídios federais de segurança máxima." },
+  { n: 35, extra: true, kind: "plano", srcName: "Portal Tela", src: "https://www.portaltela.com/politica/2026/08/14/plano-de-governo-de-flavio-bolsonaro-tem-9-eixos-veja-propostas/", who: "flavio", tag: "seguranca", text: "Castração química para estupradores e abusadores de crianças condenados." },
+  { n: 36, extra: true, kind: "plano", srcName: "Portal Tela", src: "https://www.portaltela.com/politica/2026/08/14/plano-de-governo-de-flavio-bolsonaro-tem-9-eixos-veja-propostas/", who: "flavio", tag: "seguranca", text: "Criar a \u201CMuralha Brasileira\u201D: reconhecimento facial com mais de 1 milhão de câmeras em áreas públicas, portos e aeroportos." },
+  { n: 37, extra: true, kind: "plano", srcName: "Portal Tela", src: "https://www.portaltela.com/politica/2026/08/14/plano-de-governo-de-flavio-bolsonaro-tem-9-eixos-veja-propostas/", who: "flavio", tag: "estadominimo", text: "Cortar pelo menos 10 ministérios e reduzir cargos comissionados." },
+  { n: 38, extra: true, kind: "plano", srcName: "Acessa", src: "https://www.acessa.com/politica/2026/09/340114-flavio-bolsonaro-propoe-enxugar-estado-e-endurecer-acoes-de-seguranca.html", who: "flavio", tag: "economia", text: "Cortar gastos como principal medida para forçar a queda dos juros." },
+  { n: 39, extra: true, kind: "plano", srcName: "Portal Tela", src: "https://www.portaltela.com/politica/2026/08/14/plano-de-governo-de-flavio-bolsonaro-tem-9-eixos-veja-propostas/", who: "flavio", tag: "direitostrabalhistas", text: "Reduzir gradualmente o custo de contratação \u201Csem retirar direitos\u201D e criar contratos específicos para jovens de 18 a 24 anos." },
+  { n: 40, extra: true, kind: "plano", srcName: "Diário de Pernambuco", src: "https://www.diariodepernambuco.com.br/politica/2026/10/11725729-tse-disponibiliza-plano-dos-candidatos-a-presidencia-da-republica-veja-principais-pontos.html", who: "flavio", tag: "educacao", text: "Criar um voucher-creche para famílias sem vaga." },
+  { n: 41, extra: true, kind: "plano", srcName: "Acessa", src: "https://www.acessa.com/politica/2026/09/340114-flavio-bolsonaro-propoe-enxugar-estado-e-endurecer-acoes-de-seguranca.html", who: "flavio", tag: "educacao", text: "Trocar o método de alfabetização pelo método fônico." },
+  { n: 42, extra: true, kind: "plano", srcName: "Acessa", src: "https://www.acessa.com/politica/2026/09/340114-flavio-bolsonaro-propoe-enxugar-estado-e-endurecer-acoes-de-seguranca.html", who: "flavio", tag: "educacao", text: "Criar mais escolas cívico-militares." },
+  { n: 43, extra: true, kind: "plano", srcName: "Acessa", src: "https://www.acessa.com/politica/2026/09/340114-flavio-bolsonaro-propoe-enxugar-estado-e-endurecer-acoes-de-seguranca.html", who: "flavio", tag: "educacao", text: "Transferir o ensino superior do MEC para o Ministério da Ciência, Tecnologia e Inovação." },
+  { n: 44, extra: true, kind: "plano", srcName: "Portal Tela", src: "https://www.portaltela.com/politica/2026/08/14/plano-de-governo-de-flavio-bolsonaro-tem-9-eixos-veja-propostas/", who: "flavio", tag: "saude", text: "Usar a rede privada de saúde em horários ociosos e ampliar a telessaúde." },
+  { n: 45, extra: true, kind: "plano", srcName: "Acessa", src: "https://www.acessa.com/politica/2026/09/340114-flavio-bolsonaro-propoe-enxugar-estado-e-endurecer-acoes-de-seguranca.html", who: "flavio", tag: "meioambiente", text: "Flexibilizar o licenciamento ambiental, com autolicenciamento quando o prazo de emissão expira, e liberar o fracking." },
+  { n: 46, extra: true, kind: "plano", srcName: "Portal Tela", src: "https://www.portaltela.com/politica/2026/08/14/plano-de-governo-de-flavio-bolsonaro-tem-9-eixos-veja-propostas/", who: "flavio", tag: "meioambiente", text: "Zerar o desmatamento ilegal até 2029." },
+  { n: 47, extra: true, kind: "plano", srcName: "Portal Tela", src: "https://www.portaltela.com/politica/2026/08/14/plano-de-governo-de-flavio-bolsonaro-tem-9-eixos-veja-propostas/", who: "flavio", tag: "democracia", text: "Limitar decisões monocráticas de ministros do STF e alterar suas competências." },
+  { n: 48, extra: true, kind: "plano", srcName: "Portal Tela", src: "https://www.portaltela.com/politica/2026/08/14/plano-de-governo-de-flavio-bolsonaro-tem-9-eixos-veja-propostas/", who: "flavio", tag: "democracia", text: "Acabar com a reeleição para presidente." },
+  { n: 49, extra: true, kind: "fala", srcName: "Band", src: "https://www.band.com.br/noticias/flavio-bolsonaro-propoe-pacote-da-paz-com-anistia-a-condenados-do-81-e-impeachment-de-moraes-202508051145", who: "flavio", tag: "democracia", text: "Defender anistia ampla, geral e irrestrita aos condenados do 8 de janeiro e o impeachment de Alexandre de Moraes." },
+  { n: 50, extra: true, kind: "fala", srcName: "O Hoje", src: "https://ohoje.com/2025/12/05/flavio-bolsonaro-confirma-ser-o-escolhido-pelo-pai/", who: "flavio", tag: "democracia", text: "O meu preço é o Bolsonaro livre e nas urnas. Ou seja, não tem preço." },
 ];
 
 // naipe e número como impressos nas cartas originais (aparecem só no verso)
 function suitOf(n) {
+  if (n > 32) return { sym: "★", name: "Extra", rank: "+", label: "Carta extra" };
   const rank = n === 1 ? "Ás" : String(n);
   if (n <= 8)  return { sym: "♥", name: "Copas",   rank, label: `${rank} de Copas` };
   if (n <= 16) return { sym: "♠", name: "Espadas", rank, label: `${rank} de Espadas` };
