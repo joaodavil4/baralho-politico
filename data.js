@@ -60,16 +60,29 @@ const CARDS = [
   { n: 50, extra: true, kind: "fala", srcName: "O Hoje", src: "https://ohoje.com/2025/12/05/flavio-bolsonaro-confirma-ser-o-escolhido-pelo-pai/", who: "flavio", tag: "democracia", text: "O meu preço é o Bolsonaro livre e nas urnas. Ou seja, não tem preço." },
 ];
 
-// naipe e número como impressos nas cartas originais (aparecem só no verso)
+// naipe e número exibidos no verso (a numeração vai de Ás a 12 em cada naipe)
+const SUITS = {
+  hearts:   { sym: "♥", name: "Copas" },
+  spades:   { sym: "♠", name: "Espadas" },
+  diamonds: { sym: "♦", name: "Ouros" },
+  clubs:    { sym: "♣", name: "Paus" },
+};
+
 function suitOf(n) {
-  // cartas extras de Flávio: seguem os naipes dele (ouros/paus) e a numeração continua em 33
-  if (n > 32) {
-    const ouros = n % 2 === 1;
-    return { sym: ouros ? "♦" : "♣", name: ouros ? "Ouros" : "Paus", rank: String(n), label: `${n} de ${ouros ? "Ouros" : "Paus"}` };
+  let key, pos; // pos: posição (1-based) dentro do naipe
+  if (n <= 8)       { key = "hearts";   pos = n; }
+  else if (n <= 16) { key = "spades";   pos = n - 8; }
+  else if (n <= 24) { key = "diamonds"; pos = n - 16; }
+  else if (n <= 32) { key = "clubs";    pos = n - 24; }
+  else {
+    // extras de Flávio: alternam ouros/paus e continuam de 9 a 12;
+    // passando de 12, a numeração volta para o Ás (são mais de 12 cartas por naipe)
+    const k = n - 33;
+    key = k % 2 === 0 ? "diamonds" : "clubs";
+    pos = 8 + Math.floor(k / 2) + 1;
   }
-  const rank = n === 1 ? "Ás" : String(n);
-  if (n <= 8)  return { sym: "♥", name: "Copas",   rank, label: `${rank} de Copas` };
-  if (n <= 16) return { sym: "♠", name: "Espadas", rank, label: `${rank} de Espadas` };
-  if (n <= 24) return { sym: "♦", name: "Ouros",   rank, label: `${rank} de Ouros` };
-  return        { sym: "♣", name: "Paus",    rank, label: `${rank} de Paus` };
+  const num = ((pos - 1) % 12) + 1;
+  const rank = num === 1 ? "Ás" : String(num);
+  const { sym, name } = SUITS[key];
+  return { sym, name, rank, label: `${rank} de ${name}` };
 }
