@@ -21,13 +21,47 @@
     locked = false;
     card.classList.add("no-anim"); card.classList.remove("flipped", "leaving");
     $("f-num").textContent = $("f-num2").textContent = idx + 1;
-    $("f-text").textContent = c.text;
+    renderText($("f-text"), c.text);
     $("f-tag").textContent = c.tag;
     $("progress-bar").style.width = (idx / deck.length * 100) + "%";
     $("progress-label").textContent = `${idx + 1} / ${deck.length}`;
     $("choices").classList.remove("hidden"); $("btn-next").classList.add("hidden");
     void card.offsetWidth; card.classList.remove("no-anim");
     if (animate) { card.classList.remove("dealing"); void card.offsetWidth; card.classList.add("dealing"); }
+  }
+
+  // monta a frase; termos do glossário ganham um botão "i" com a explicação
+  function renderText(el, text) {
+    const hits = [];
+    for (const g of GLOSSARY) {
+      const i = text.toLowerCase().indexOf(g.term.toLowerCase());
+      if (i >= 0 && !hits.some(h => i < h.end && i + g.term.length > h.start)) {
+        hits.push({ start: i, end: i + g.term.length, g });
+      }
+    }
+    hits.sort((a, b) => a.start - b.start);
+    el.textContent = "";
+    let pos = 0;
+    for (const h of hits) {
+      el.append(text.slice(pos, h.start));
+      const span = document.createElement("span");
+      span.className = "term";
+      span.append(text.slice(h.start, h.end));
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "info"; b.textContent = "i";
+      b.setAttribute("aria-label", `O que é: ${h.g.title}`);
+      b.onclick = (e) => { e.stopPropagation(); openInfo(h.g); };
+      span.append(b);
+      el.append(span);
+      pos = h.end;
+    }
+    el.append(text.slice(pos));
+  }
+
+  function openInfo(g) {
+    $("info-title").textContent = g.title;
+    $("info-text").textContent = g.text;
+    $("info").classList.remove("hidden");
   }
 
   function answer(good) {
@@ -171,6 +205,8 @@
   $("btn-bad").onclick = () => answer(false);
   $("btn-next").onclick = next;
   $("btn-finish").onclick = finishEarly;
+  $("info-close").onclick = () => $("info").classList.add("hidden");
+  $("info").addEventListener("click", (e) => { if (e.target === $("info")) $("info").classList.add("hidden"); });
   $("modal-cancel").onclick = () => $("modal").classList.add("hidden");
   $("modal-ok").onclick = () => { $("modal").classList.add("hidden"); card.classList.remove("leaving"); result(); };
   $("b-src").addEventListener("click", (e) => e.stopPropagation());
